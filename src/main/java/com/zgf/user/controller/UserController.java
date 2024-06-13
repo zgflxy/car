@@ -29,20 +29,20 @@ public class UserController {
 
     /**
      * 登录
-     * @param username
-     * @param password
+     * @param userName 用户名
+     * @param password 密码
      * @return
      */
     @GetMapping("/login")
-    public Result login(@RequestParam String username, @RequestParam String password){
-        return userService.login(username, password);
+    public Result login(@RequestParam String userName, @RequestParam String password){
+        return userService.login(userName, password);
     }
 
     /**
      * 注册
-     * @param username
-     * @param password
-     * @param captcha
+     * @param username 用户名
+     * @param password 密码
+     * @param captcha  验证码
      * @return
      */
     @PostMapping("/enroll")
@@ -79,8 +79,7 @@ public class UserController {
      */
     @GetMapping("/pages/{pages}")
     public Result selectPage(@PathVariable int pages) {
-        Page<User> page = new Page<>(pages, 10);
-        return Result.success(this.userService.page(page, new QueryWrapper<>()));
+        return userService.selectPage(pages);
     }
 
     /**
@@ -91,7 +90,8 @@ public class UserController {
      */
     @GetMapping("{id}")
     public Result<User> selectOne(@PathVariable Serializable id) {
-        return Result.success(this.userService.getById(id));
+//        return Result.success(this.userService.getById(id));
+        return userService.selectOne(id);
     }
 
     /**
